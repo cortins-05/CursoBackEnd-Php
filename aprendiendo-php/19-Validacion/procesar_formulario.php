@@ -10,23 +10,23 @@ if(!empty($_POST['nombre']) && !empty($_POST['apellidos']) && !empty($_POST['eda
     $pass = $_POST['contraseña'];
 
     //Validar el nombre
-    if(!is_string($nombre) && !preg_match("/[1-9]+/",$nombre)){
+    if(!is_string($nombre) || !preg_match("/[1-9]+/",$nombre)){
         $error = 'nombre'; 
     }
 
-    if(!is_string($apellidos) && !preg_match("/[1-9]+/",$apellidos)){
+    if(!is_string($apellidos) || !preg_match("/[1-9]+/",$apellidos)){
         $error = 'apellidos'; 
     }
 
-    if(!is_int($edad) && filter_var($edad,FILTER_VALIDATE_INT)){
+    if(!is_int($edad) || filter_var($edad,FILTER_VALIDATE_INT)){
         $error = 'edad'; 
     }
 
-    if(!is_int($email) && filter_var($email,FILTER_VALIDATE_EMAIL)){
+    if(!is_int($email) || filter_var($email,FILTER_VALIDATE_EMAIL)){
         $error = 'email';
     }
 
-    if(empty($pass) && strlen(($pass)<5)){
+    if(empty($pass) || strlen(($pass)<5)){
         $error = "password";
     }
 
