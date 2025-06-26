@@ -1,29 +1,14 @@
 <?php
-session_start();
-if(isset($_POST['submit'])){
-    if(isset($_POST['nombre'])){
-        $nombre = $_POST['nombre'];
-    }else{
-        $nombre = false;
-    }
+if(isset($_POST)){
+    
+    //Conexion a la bd
+    require_once 'includes/conexion.php';
 
-    if(isset($_POST['apellidos'])){
-        $apellidos = $_POST['apellidos'];    
-    }else{
-        $apellidos = false;
-    }
-    
-    if(isset($_POST['email'])){
-        $email = $_POST['email'];
-    }else{
-        $email = false;
-    }
-    
-    if(isset($_POST['contraseña'])){
-        $password = $_POST['contraseña'];
-    }else{
-        $password = false;
-    }
+    //Recoger los valores del formulario de registro
+    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
+    $apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : false;
+    $email = isset($_POST['email']) ? $_POST['email'] : false;
+    $password = isset($_POST['contraseña']) ? $_POST['contraseña'] : false;
 
     //Array de errores
     $errores = array();
@@ -57,15 +42,31 @@ if(isset($_POST['submit'])){
         $password_validado = false;
     }
     
+    $guardar_usuario = false;
+
     if(count($errores)==0){
+
+        $guardar_usuario = true;
+
+        //Cifrar contraseña
+        $password_segura = password_hash($password,PASSWORD_BCRYPT, ['cost'=>4]);
+        
+
         //Insertar usuario en la bd
+        $sql = "INSERT into usuarios values(null, '$nombre', '$apellidos', '$email', '$password_segura', curdate())";
+        $guardar = mysqli_query($db,$sql);
+
+        if($guardar){
+            $_SESSION['completado'] = "El registro se ha completado con exito";
+        }else{
+            $_SESSION['errores']['general'] = "Fallo al guardar el usuario";
+        }
 
     }else{
-
+        $_SESSION['errores'] = $errores;
     }
-
 }
 
-var_dump($_POST);
+header('Location:index.php');
 
 ?>

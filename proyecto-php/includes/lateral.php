@@ -16,26 +16,35 @@
 
             <div id="register" class="bloque">
                 <h3>Registrarse</h3>
+                <?php if(isset($_SESSION['completado'])) : ?>
+                    <div class="alerta alerta-exito">
+                        <?=$_SESSION['completado']?>
+                    </div>
+                <?php elseif(isset($_SESSION['errores']['general'])): ?>
+                    <div class="alerta alerta-error">
+                        <?=$_SESSION['errores']['general']?>
+                    </div>
+                <?php endif; ?>
                 <form action="registro.php" method="POST">
                     <label for="nombre">Nombre</label>
                     <input type="text" name="nombre">
                     
-                    <?php echo mostrarError($_SESSION['errores'],'nombre'); ?>
+                    <?php if(isset($_SESSION['errores'])){echo mostrarError($_SESSION['errores'],'nombre');} ?>
 
                     <label for="apellidos">Apellidos</label>
                     <input type="text" name="apellidos">
 
-                    <?php echo mostrarError($_SESSION['errores'],'apellidos'); ?>
+                    <?php if(isset($_SESSION['errores'])){echo mostrarError($_SESSION['errores'],'apellidos');} ?>
 
                     <label for="email">Email</label>
                     <input type="email" name="email">
 
-                    <?php echo mostrarError($_SESSION['errores'],'email'); ?>
+                    <?php if(isset($_SESSION['errores'])){echo mostrarError($_SESSION['errores'],'email');} ?>
 
                     <label for="contraseña">Contraseña</label>
                     <input type="password" name="contraseña">
 
-                    <?php echo mostrarError($_SESSION['errores'],'contraseña'); ?>
+                    <?php if(isset($_SESSION['errores'])){echo mostrarError($_SESSION['errores'],'contraseña');} ?>
 
                     <input type="submit" name="submit" value="Registrar">
                 </form>
