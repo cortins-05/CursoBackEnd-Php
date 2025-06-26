@@ -5,10 +5,10 @@ if(isset($_POST)){
     require_once 'includes/conexion.php';
 
     //Recoger los valores del formulario de registro
-    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : false;
-    $apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : false;
-    $email = isset($_POST['email']) ? $_POST['email'] : false;
-    $password = isset($_POST['contraseña']) ? $_POST['contraseña'] : false;
+    $nombre = isset($_POST['nombre']) ? mysqli_escape_string($db, $_POST['nombre']) : false;
+    $apellidos = isset($_POST['apellidos']) ? mysqli_escape_string($db,$_POST['apellidos']) : false;
+    $email = isset($_POST['email']) ? mysqli_escape_string($db,trim($_POST['email'])) : false;
+    $password = isset($_POST['contraseña']) ? mysqli_escape_string($db,trim($_POST['contraseña'])) : false;
 
     //Array de errores
     $errores = array();
