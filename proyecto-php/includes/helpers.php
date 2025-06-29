@@ -28,4 +28,14 @@ function conseguirCategorias($db){
     return false;
 }
 
+function conseguirUltimasEntradas($conexion){
+    $sql = "Select e.*, c.nombre as 'categoria' from entradas e inner join categorias c on e.categoria_id = c.id order by e.id desc limit 4";
+    $entradas = mysqli_query($conexion,$sql);
+    $resultado = array();
+    if($entradas && mysqli_num_rows($entradas)>=1){
+        $resultado = $entradas;
+    }
+    return $resultado;
+}
+
 ?>
