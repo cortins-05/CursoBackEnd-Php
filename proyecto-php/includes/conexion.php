@@ -8,6 +8,9 @@ $db = mysqli_connect($server,$username,$password,$database);
 
 mysqli_query($db,"set names 'utf8'");
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 
 ?>
