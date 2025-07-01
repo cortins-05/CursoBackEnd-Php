@@ -40,6 +40,16 @@ function conseguirCategoria($db,$id){
     return false;
 }
 
+function conseguirEntrada($conexion, $id){
+    $sql = "select e.*, c.nombre as 'categoria' from entradas e inner join categorias c on e.categoria_id = c.id where e.id = $id;";
+    $entrada = mysqli_query($conexion,$sql);
+    $resultado = array();
+    if($entrada && mysqli_num_rows($entrada)>=1){
+        $resultado = mysqli_fetch_assoc($entrada);
+    }
+    return $resultado;
+}
+
 function conseguirUltimasEntradas($conexion){
     $sql = "Select e.*, c.nombre as 'categoria' from entradas e inner join categorias c on e.categoria_id = c.id order by e.id desc limit 4";
     $entradas = mysqli_query($conexion,$sql);
