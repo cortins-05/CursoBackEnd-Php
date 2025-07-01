@@ -1,11 +1,12 @@
 <?php require_once("includes/cabecera.php"); ?>
+
     <div id="contenedor">
         <?php require_once("includes/lateral.php"); ?>
         <!-- CAJA PRINCIPAL -->
         <div id="principal">
-            <h1>Ultimas entradas</h1>
+            <h1>Todas entradas</h1>
             <?php
-                $entradas = conseguirUltimasEntradas($db);
+                $entradas = conseguirEntradas($db,10);
                 if(!empty($entradas)):
                     while($entrada=mysqli_fetch_assoc($entradas)): 
             ?>
@@ -23,7 +24,4 @@
                 endif;
             ?>
 
-            <div id="ver-todas">
-                <a href="entradas.php">Ver todas las entradas</a>
-            </div>
 <?php require_once("includes/pie.php"); ?>

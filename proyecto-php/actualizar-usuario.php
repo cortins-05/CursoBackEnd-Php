@@ -36,19 +36,28 @@ if(isset($_POST)){
 
     if(count($errores)==0){
 
+        $usuario_id = $_SESSION['usuario']['id'];
         $guardar_usuario = true;
 
-        $usuario = $_SESSION['usuario'];
-        $sql = "update usuarios set nombre='$nombre',apellidos='$apellidos',email='$email' where id = ".$_SESSION['usuario']['id'];
-        $guardar = mysqli_query($db,$sql);
+        $sql = "select id, email from usuarios where email = '$email';";
+        $isset_email = mysqli_query($db,$sql);
+        $isset_user = mysqli_fetch_assoc($isset_email);
 
-        if($guardar){
-            $_SESSION['usuario']['nombre']=$nombre;
-            $_SESSION['usuario']['apellidos']=$apellidos;
-            $_SESSION['usuario']['email']=$email;
-            $_SESSION['completado'] = "La actualizacion del usuario se ha completado con exito";
+        if($isset_user['id']== $usuario_id || empty($isset_user)){
+            $usuario = $_SESSION['usuario'];
+            $sql = "update usuarios set nombre='$nombre',apellidos='$apellidos',email='$email' where id = ".$_SESSION['usuario']['id'];
+            $guardar = mysqli_query($db,$sql);
+
+            if($guardar){
+                $_SESSION['usuario']['nombre']=$nombre;
+                $_SESSION['usuario']['apellidos']=$apellidos;
+                $_SESSION['usuario']['email']=$email;
+                $_SESSION['completado'] = "La actualizacion del usuario se ha completado con exito";
+            }else{
+                $_SESSION['errores']['general'] = "Fallo al guardar el usuario";
+            }
         }else{
-            $_SESSION['errores']['general'] = "Fallo al guardar el usuario";
+            $_SESSION['errores']['general'] = "El usuario ya existe!!";
         }
 
     }else{

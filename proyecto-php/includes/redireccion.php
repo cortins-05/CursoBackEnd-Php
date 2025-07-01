@@ -4,7 +4,8 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 if(!isset($_SESSION['usuario'])){
-    header("Location:index.php");
+    header("Location: index.php");
+    exit(); // Importante para detener la ejecución
 }
 
 ?>
