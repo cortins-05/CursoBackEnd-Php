@@ -41,7 +41,7 @@ function conseguirCategoria($db,$id){
 }
 
 function conseguirEntrada($conexion, $id){
-    $sql = "select e.*, c.nombre as 'categoria' from entradas e inner join categorias c on e.categoria_id = c.id where e.id = $id;";
+    $sql = "select e.*, c.nombre as 'categoria', concat(u.nombre, ' ', u.apellidos) as usuario from entradas e inner join categorias c on e.categoria_id = c.id inner join usuarios u on e.usuario_id = u.id where e.id = $id;";
     $entrada = mysqli_query($conexion,$sql);
     $resultado = array();
     if($entrada && mysqli_num_rows($entrada)>=1){

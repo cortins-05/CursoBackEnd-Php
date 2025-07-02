@@ -6,7 +6,7 @@
         <div id="principal">
             <h1>Todas entradas</h1>
             <?php
-                $entradas = conseguirEntradas($db,10);
+                $entradas = conseguirEntradas($db);
                 if(!empty($entradas)):
                     while($entrada=mysqli_fetch_assoc($entradas)): 
             ?>
