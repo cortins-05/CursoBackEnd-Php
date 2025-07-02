@@ -60,10 +60,13 @@ function conseguirUltimasEntradas($conexion){
     return $resultado;
 }
 
-function conseguirEntradas($conexion,$limit=null,$categoria = null){
+function conseguirEntradas($conexion,$limit=null,$categoria = null,$busqueda=null){
     $sql = "Select e.*, c.nombre as 'categoria' from entradas e inner join categorias c on e.categoria_id = c.id";
     if(!empty($categoria)){
         $sql .= " where e.categoria_id = $categoria";
+    }
+    if(!empty($busqueda)){
+        $sql .= " where e.titulo like '%$busqueda%'";
     }
     $sql .= " order by e.id desc";
     if($limit!=null){

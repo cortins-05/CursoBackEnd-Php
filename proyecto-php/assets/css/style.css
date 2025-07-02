@@ -248,7 +248,7 @@ input[type="submit"],
 
 /*PIE DE PAGINA*/
 #pie{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     clear:both;
     width: 85%;
