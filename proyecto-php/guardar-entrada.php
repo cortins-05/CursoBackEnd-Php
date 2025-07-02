@@ -29,20 +29,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (count($errores) === 0) {
-        $sql = "INSERT INTO entradas (usuario_id, categoria_id, titulo, descripcion, fecha)
-                VALUES ($usuario, $categoria, '$titulo', '$descripcion', CURDATE());";
-
-        $guardar = mysqli_query($db, $sql);
-
-        if (!$guardar) {
-            $_SESSION['errores_entrada'] = ["sql" => "Error en la base de datos: " . mysqli_error($db)];
-        } else {
-            $_SESSION['completado'] = "Entrada guardada correctamente.";
+        if(isset($_GET['editar'])){
+            $entrada_id = $_GET['editar'];
+            $usuario_id = $_SESSION['usuario']['id'];
+            $sql = "update entradas set titulo='$titulo', descripcion='$descripcion',categoria_id=$categoria where id=$entrada_id and usuario_id=$usuario_id";
+        }else{
+            $sql = "INSERT INTO entradas (usuario_id, categoria_id, titulo, descripcion, fecha) VALUES ($usuario, $categoria, '$titulo', '$descripcion', CURDATE());";
         }
+        $guardar = mysqli_query($db, $sql);
+        header("Location: index.php");
     } else {
         $_SESSION['errores_entrada'] = $errores;
+        if(isset($_GET['editar'])){
+            header("Location:editar-entrada.php?=id".$_GET['editar']);
+        }else{
+            header("Location:crear-entradas.php");
+        }
     }
 }
 
-header("Location: index.php");
+
 exit;
