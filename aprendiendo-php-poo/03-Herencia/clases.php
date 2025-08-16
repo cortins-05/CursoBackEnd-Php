@@ -49,6 +49,11 @@ class Informatico extends Persona{
     public $lenguajes;
     public $experenciaProgramador;
 
+    public function __construct(){
+        $this -> lenguajes = "HTML, CSS y JS";
+        $this ->experenciaProgramador = 10;
+    }
+
     public function sabeLenguajes($lenguajes){
         $this->lenguajes = $lenguajes;
         return $this->lenguajes;
