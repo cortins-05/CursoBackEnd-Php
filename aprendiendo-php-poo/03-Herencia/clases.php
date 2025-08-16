@@ -74,7 +74,12 @@ class Informatico extends Persona{
 class TecnicoRedes extends Informatico{
     public $auditarRedes;
     public $experienciaRedes;
-    public function auditarRedes(){
+    public function __construct(){
+        parent::__construct();
+        $this->auditarRedes='experto';
+        $this->experienciaRedes=5;
+    }
+    public function auditoria(){
         return "Estoy auditando redes";
     }
 }
