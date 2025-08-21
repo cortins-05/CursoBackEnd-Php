@@ -1,10 +1,14 @@
 <?php
-
-class Usuario{
+require_once 'ModeloBase.php';
+class Usuario extends ModeloBase{
     public $nombre;
     public $apellidos;
     public $email;
     public $password;
+
+    public function __construct(){
+        parent::__construct();
+    }
 
     function getNombre(){
         return $this->nombre;
@@ -30,10 +34,6 @@ class Usuario{
     }
     function setPassword($password){
         $this->password = $password;
-    }
-
-    public function conseguirTodos(){
-        return "Sacando todos los usuarios";
     }
 
 }
