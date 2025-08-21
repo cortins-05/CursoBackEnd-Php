@@ -1,5 +1,7 @@
 {
     "require": {
-        "mpdf/mpdf": "^8.2"
+        "mpdf/mpdf": "^8.2",
+        "stefangabos/zebra_pagination": "^2.4",
+        "myclabs/deep-copy": "^1.13"
     }
 }
