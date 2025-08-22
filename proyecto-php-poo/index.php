@@ -1,13 +1,23 @@
 <?php
-
+session_start();
 require_once 'autoload.php';
+require_once 'config/db.php';
+require_once 'config/parametrers.php';
+require_once 'helpers/utils.php';
 require_once 'views/layout/header.php';
 require_once 'views/layout/sidebar.php';
 
+function show_error(){
+    $error = new ErrorController();
+    $error->index();
+}
+
 if(isset($_GET['controller'])){
     $nombre_controlador = $_GET['controller'].'Controller';
+}else if(!isset($_GET['controller'])&&!isset($_GET['action'])){
+    $nombre_controlador = controller_default;
 }else{
-    echo '<p>La pagina que buscas no existe 1</p>';
+    show_error();
     exit();
 }
 
@@ -16,11 +26,14 @@ if(class_exists($nombre_controlador)){
         if(isset($_GET['action']) && method_exists($controlador, $_GET['action'])){
             $action = $_GET['action'];
             $controlador->$action();
+        }else if(!isset($_GET['controller'])&&!isset($_GET['action'])){
+            $default = action_default;
+            $controlador->$default;
         }else{
-            echo '<p>La pagina que buscas no existe 2</p>';
+            show_error();
         }
 }else{
-    echo '<p>La pagina que buscas no existe 3</p>';
+    show_error();
 }
 
 
