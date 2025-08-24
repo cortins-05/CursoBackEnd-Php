@@ -31,7 +31,7 @@ class usuario{
         return $this->email;
     }
     function getPassword(){
-        return $this->password;
+        return password_hash($this->db->real_escape_string($this->password), PASSWORD_BCRYPT, ['cost'=>4]);
     }
     function getRol(){
         return $this->rol;
@@ -53,7 +53,7 @@ class usuario{
         $this->email = $this->db->real_escape_string($email);
     }
     function setPassword($password){
-        $this->password = password_hash($this->db->real_escape_string($password), PASSWORD_BCRYPT, ['cost'=>4]);
+        $this->password = $password;
     }
     function setRol($rol){
         $this->rol = $this->db->real_escape_string($rol);
@@ -70,6 +70,27 @@ class usuario{
             $result = true;
             return $result;
         }
+    }
+
+    public function login(){
+        $result = false;
+        $email = $this->email;
+        $password = $this->password;
+        
+        //Comprobar si existe el usuario
+        $sql = "select * from usuarios where email = '$email'";
+        $login = $this->db->query($sql);
+
+        if($login&&$login->num_rows==1){
+            $usuario = $login->fetch_object();
+
+            //Verificar la contrasena
+            $verify = password_verify($password, $usuario->password);
+            if($verify){
+                $result = $usuario;
+            }
+        }
+        return $result;
     }
 
 }
