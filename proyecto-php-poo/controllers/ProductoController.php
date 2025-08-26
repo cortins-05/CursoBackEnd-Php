@@ -9,6 +9,20 @@ class ProductoController{
         //Renderizar vista
         require_once 'views/producto/destacados.php';
     }
+
+    public function ver(){
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $edit = true;
+
+            $producto = new Producto();
+            $producto->setId($id);
+            $pro = $producto->getOne();
+
+            
+        }
+        require_once 'views/producto/ver.php';
+    }
     
     public function gestion(){
         Utils::isAdmin();
