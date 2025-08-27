@@ -10,9 +10,9 @@
                 <?php else: ?>
                     <img src="<?=base_url?>assets/img/camiseta.png">
                 <?php endif; ?>
-                <h2><?=$pro->nombre?></h2>        
+                <h2><a href="<?=base_url?>producto/ver&id=<?=$pro->id?>"><?=$pro->nombre?></a></h2>        
                 <p><?=$pro->precio?></p>
-                <a href="#" class="button">Comprar</a>
+                <a href="<?=base_url?>carrito/add&id=<?=$pro->id?>" class="button">Comprar</a>
             </div>
         <?php endwhile;?>
     <?php endif;?>
