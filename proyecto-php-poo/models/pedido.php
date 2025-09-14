@@ -77,9 +77,39 @@ class Pedido{
         return $producto->fetch_object();
     }
 
+    public function getOneByUser(){
+        $producto = $this->db->query("select p.id, p.coste from pedidos p inner join lineas_pedidos lp on lp.pedido_id = p.id where usuario_id={$this->getUsuario_id()} order by p.id desc limit 1 ");
+        return $producto->fetch_object();
+    }
+
+    public function getProductsByPedido($id){
+        $sql = "select pr.*,lp.unidades from productos pr inner join lineas_pedidos lp on pr.id = lp.producto_id where lp.pedido_id ={$id}";
+        $productos = $this->db->query($sql);
+        return $productos;
+    }
+
     public function save(){
         $sql = "insert into pedidos values(null,{$this->getUsuario_id()},'{$this->getProvincia()}','{$this->getLocalidad()}','{$this->getDireccion()}',{$this->getCoste()},'confirmado',curdate(),curtime())";
         $save = $this->db->query($sql);
+
+        $result = false;
+        if($save){
+            $result = true;
+        }
+        return $result;
+    }
+
+    public function save_linea(){        
+        $sql = "select LAST_INSERT_ID() as id";
+        $query = $this->db->query($sql);
+
+        $pedido_id = $query->fetch_object()->id;
+
+        foreach($_SESSION['carrito'] as $elemento){
+            $producto = $elemento['producto'];
+            $insert = "insert into lineas_pedidos values(null,{$pedido_id},{$producto->id},{$elemento['unidades']})";
+            $save = $this->db->query($insert);
+        }
 
         $result = false;
         if($save){
