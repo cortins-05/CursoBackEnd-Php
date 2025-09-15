@@ -17,6 +17,14 @@ class Utils{
         }
     }
 
+    public static function isIdentity(){
+        if(!isset($_SESSION['identity'])){
+            header("Location:".base_url);
+        }else{
+            return true;
+        }
+    }
+
     public static function showCategorias(){
         require_once 'models/categoria.php';
         $categoria = new categoria();
@@ -38,6 +46,19 @@ class Utils{
         return $stats;
     }
 
+    public static function showStatus($status){
+        $value = 'revisa showStatus en utils';
+        if($status=='confirmado'){
+            $value = 'Pendiente';
+        }elseif($status=='preparation'){
+            $value = 'En preparacion';
+        }elseif($status=='ready'){
+            $value = 'Preparado';
+        }elseif($status=='sended'){
+            $value = 'Enviado';
+        }
+        return $value;
+    }
 }
 
 ?>
