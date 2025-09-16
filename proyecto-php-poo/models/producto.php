@@ -128,15 +128,17 @@ class Producto{
     }
 
     public function delete(){
-        $sql = "delete from productos where id={$this->id}";
-        $delete = $this->db->query($sql);
+        // Primero eliminar las líneas asociadas
+        $sql1 = "DELETE FROM lineas_pedidos WHERE producto_id={$this->id}";
+        $this->db->query($sql1);
 
-        $result = false;
-        if($delete){
-            $result=true;
-        }
-        return $result;
+        // Luego eliminar el producto
+        $sql2 = "DELETE FROM productos WHERE id={$this->id}";
+        $delete = $this->db->query($sql2);
+
+        return $delete ? true : false;
     }
+
 
 }
 
