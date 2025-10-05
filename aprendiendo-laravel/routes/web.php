@@ -6,23 +6,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-/*
-GET: Conseguir datos
-POST: Guardar datos
-PUT: Actualizar recursos
-DELETE: Eliminar recursos 
-*/
-
-Route::get('/mostrar-fecha',function(){
-    $titulo = "Estoy mostrando la fecha";
-    return view('mostrar-fecha', array(
-        'titulo'=>$titulo
-    ));
-});
-
-Route::get('/pelicula/{titulo?}',function($titulo='No hay una pelicula seleccionada'){
-    return view('pelicula',array(
-        'titulo'=>$titulo
-    ));
+Route::get('/listado-peliculas',function(){
+    $titulo = "Listado de peliculas";
+    $listado = array('Batman','Spiderman','Gran Torino');
+    return view('listado')
+        ->with('titulo',$titulo)
+        ->with('listado',$listado);
 });
