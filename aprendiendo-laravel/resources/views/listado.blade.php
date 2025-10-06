@@ -1,3 +1,5 @@
+@include('includes.header')
+
 <!--IMPRIMIR POR PANTALLA-->
 <h1>{{ $titulo }}</h1>
 <h2>{{ $listado[2] }}</h2>
@@ -45,3 +47,6 @@
 @foreach ($listado as $pelicula )
     <p>{{ $pelicula }}</p>
 @endforeach
+
+
+@include('includes.footer')
