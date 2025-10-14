@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrutaController;
 use App\Http\Controllers\PeliculaController;
 use App\Http\Middleware\TestYear;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,11 @@ Route::get('/detalle/{year?}',[PeliculaController::class, 'detalle'])
 ->middleware(TestYear::class);
 
 Route::get('/redirigir',[PeliculaController::class, 'redirigir']);
+
+Route::get('/formulario',[PeliculaController::class,'formulario']);
+Route::post('/recibir',[PeliculaController::class,'recibir'])->name('peliculas.recibir');
+
+Route::group(['prefix'=>'frutas'],function(){
+    Route::get('index',[FrutaController::class,'index']);
+    Route::get('detail/{id}', [FrutaController::class,'detail'])->name('fruta.detail');
+});
