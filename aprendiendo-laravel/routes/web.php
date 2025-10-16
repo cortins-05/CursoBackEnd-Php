@@ -35,6 +35,11 @@ Route::get('/formulario',[PeliculaController::class,'formulario']);
 Route::post('/recibir',[PeliculaController::class,'recibir'])->name('peliculas.recibir');
 
 Route::group(['prefix'=>'frutas'],function(){
-    Route::get('index',[FrutaController::class,'index']);
+    Route::get('index',[FrutaController::class,'index'])->name('fruta.index');
     Route::get('detail/{id}', [FrutaController::class,'detail'])->name('fruta.detail');
+    Route::get('crear',[FrutaController::class,'create'])->name('fruta.create');
+    Route::post('save',[FrutaController::class,'save'])->name('fruta.save');
+    Route::get('delete/{id}',[FrutaController::class,'delete'])->name('fruta.delete');
+    Route::get('edit/{id}',[FrutaController::class,'edit'])->name('fruta.edit');
+    Route::post('update',[FrutaController::class,'update'])->name('fruta.update');
 });
