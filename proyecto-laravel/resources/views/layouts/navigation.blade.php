@@ -20,7 +20,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('image.create')" :active="request()->routeIs('dashboard')">
                         {{ __('Subir imagen') }}
                     </x-nav-link>
 

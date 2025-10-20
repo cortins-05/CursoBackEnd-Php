@@ -3,6 +3,7 @@ form .avatar{
     margin-bottom: 15px;
 }
 
+.pub_image .container-avatar,
 nav .container-avatar{
     width: 35px;
     height: 35px;
@@ -10,6 +11,27 @@ nav .container-avatar{
     overflow: hidden;
 }
 
+.pub_image .container-avatar img,
 nav .container-avatar img{
     height: 100%;
+}
+
+.pub_image .container-avatar{
+    float: left;
+    margin-right: 15px;
+}
+
+.pub_image .data-user{
+    font-weight: bold;
+    line-height: 35px;
+}
+
+.image-container{
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.image-container img{
+    width: 100%;
 }
