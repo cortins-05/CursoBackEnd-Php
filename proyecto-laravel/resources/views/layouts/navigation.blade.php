@@ -23,6 +23,9 @@
                     <x-nav-link :href="route('image.create')" :active="request()->routeIs('dashboard')">
                         {{ __('Subir imagen') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Gente') }}
+                    </x-nav-link>
 
                     <x-nav-link>
                         @include('includes.avatar')
@@ -47,7 +50,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('user.profile',['id'=>Auth::id()])">
                             {{ __('Mi perfil') }}
                         </x-dropdown-link>
                         

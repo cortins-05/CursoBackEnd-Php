@@ -35,3 +35,8 @@ nav .container-avatar img{
 .image-container img{
     width: 100%;
 }
+
+.number_likes{
+    color: gray;
+    font-size: 11px;
+}

@@ -20,6 +20,12 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(){
+        $users = User::orderBy('id','desc')->paginate(5);
+
+        return view('user.index',['users'=>$users]);
+    }
+
     public function config(){
         return view('user.config');
     }
@@ -73,5 +79,12 @@ class UserController extends Controller
     public function getImage($filename){
         $file = Storage::disk('users')->get($filename);
         return new Response2($file,200);
+    }
+
+    public function profile($id){
+        $user = User::find($id);
+        return view('user.profile',[
+            'user'=>$user
+        ]);
     }
 }

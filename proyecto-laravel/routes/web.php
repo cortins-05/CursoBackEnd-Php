@@ -3,9 +3,12 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Image;
 use Illuminate\Support\Facades\Route;
+use Nette\Utils\ImageColor;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,3 +32,11 @@ Route::get('/image/file/{filename}',[ImageController::class,'getImage'])->name('
 Route::get('/imagen/{id}',[ImageController::class,'detail'])->name('image.detail');
 Route::post('comment/save',[CommentController::class,'save'])->name('comment.save');
 Route::get('/comment/delete/{id}',[CommentController::class,'delete'])->name('comment.delete');
+Route::get('/like/{image_id}',[LikeController::class,'like'])->name('like.save');
+Route::get('/dislike/{image_id}',[LikeController::class,'dislike'])->name('like.delete');
+Route::get('/likes',[LikeController::class,'index'])->name('likes');
+Route::get('/perfil/{id}',[UserController::class,'profile'])->name('user.profile');
+Route::get('/image/delete/{id}',[ImageController::class,'delete'])->name('image.delete');
+Route::get('/image/editar/{id}',[ImageController::class,'edit'])->name('image.edit');
+Route::post('/image/update',[ImageController::class,'update'])->name('image.update');
+Route::get('/gente',[UserController::class,'index'])->name('user.index');

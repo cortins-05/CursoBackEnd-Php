@@ -6,13 +6,13 @@
     </x-slot>
 
     <div class="flex flex-col gap-6 p-6 w-full">
-        @foreach ($images as $image)
-            @include('includes.image',['image'=>$image])
+        @foreach ($likes as $like)
+            @include('includes.image',['image'=>$like->image])
         @endforeach
 
         <!-- Paginación centrada -->
         <div class="mt-4 flex justify-center">
-            {{ $images->links('pagination::tailwind') }}
+            {{ $likes->links('pagination::tailwind') }}
         </div>
     </div>
 </x-app-layout>

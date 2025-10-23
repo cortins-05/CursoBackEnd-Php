@@ -47,8 +47,53 @@
             </div>
 
             <!--Comentarios y Likes-->
-            <div class="flex flex-col gap-3 max-h-[40px]">
-                <img src="{{ asset('img/heart-black.png') }}" style="height: 46px; width: 50px;" alt="">
+            <div class="flex flex-col gap-3">
+                <div class="likes flex gap-3">
+                <?php $user_like = false; ?>
+                @foreach ($image->likes as $like)
+                    @if ($like->user->id==Auth::id())
+                        <?php $user_like = true; ?>
+                    @endif
+                @endforeach
+                @if ($user_like)
+                    <img src="{{ asset('img/heart-red.png') }}" class="btn-like" data-id="{{$image->id}}" style="height: 46px; width: 50px;" alt="">
+                @else
+                    <img src="{{ asset('img/heart-black.png') }}" class="btn-dislike" data-id="{{$image->id}}" style="height: 46px; width: 50px;" alt="">
+                @endif
+                <span class="number_likes">{{ count($image->likes) }}</span>
+                </div>
+
+                @if(Auth::user()&&Auth::id()==$image->user_id)
+                <div class="actions">
+                    <a href="{{ route('image.edit',['id'=>$image->id]) }}" class="btn btn-primary">Actualizar</a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Borrar
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Borrar imagen?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Si eliminas esta imagen nunca podras recuperarla, estas seguro?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="{{ route('image.delete',['id'=>$image->id]) }}" class="btn btn-sm btn-danger">Borrar definitivamente</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+                @endif
+
+
                 <h2>Comentarios {{ count($image->comments) }}</h2>
                 <hr>
                 <form action="{{ route('comment.save') }}" method="post" class="form">
